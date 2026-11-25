@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apolo • 3 Anos | Convite Interativo</title>
+
+  <!-- Google Fonts: Fredoka (títulos arredondados infantis) + Nunito (leitura suave) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            creme: {
+              fundo: '#F8F4EC',
+              card: '#FFFDF8',
+              suave: '#F1E9DC',
+            },
+            oliva: {
+              DEFAULT: '#5F7152',
+              escuro: '#4A5A3F',
+              suave: '#EBF1E7',
+            },
+            salvia: {
+              claro: '#A7C4A0',
+              DEFAULT: '#8FA88B',
+              menta: '#CFE2CB',
+            },
+            pessego: {
+              claro: '#F6E8D8',
+              DEFAULT: '#E6C6A8',
+              escuro: '#CCA37F',
+            },
+            dourado: {
+              DEFAULT: '#D99B52',
+              claro: '#FFF3DA',
+              quente: '#C18339',
+            },
+            terracota: {
+              DEFAULT: '#C86D51',
+              suave: '#F6E2DC',
+            },
+            madeira: {
+              clara: '#7D5B45',
+              escura: '#5B3E2C',
+              suave: '#957762',
+            },
+          },
+          fontFamily: {
+            titulo: ['Fredoka', 'sans-serif'],
+            corpo: ['Nunito', 'sans-serif'],
+          },
+          boxShadow: {
+            cartao: '0 22px 50px -16px rgba(91, 62, 44, 0.16), 0 0 0 1px rgba(143, 168, 139, 0.25)',
+            suave: '0 10px 24px -8px rgba(95, 113, 82, 0.30)',
+            placa: '0 6px 14px -4px rgba(91, 62, 44, 0.20)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #F8F4EC;
+      background-image:
+        radial-gradient(circle at 10% 8%, rgba(167, 196, 160, 0.30) 0%, transparent 42%),
+        radial-gradient(circle at 90% 15%, rgba(230, 198, 168, 0.36) 0%, transparent 40%),
+        radial-gradient(circle at 50% 94%, rgba(143, 168, 139, 0.22) 0%, transparent 45%);
+      color: #5B3E2C;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    /* Painel verde-sálvia canelado */
+    .bg-canelado-salvia {
+      background-color: #8FA88B;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.24) 0px,
+        rgba(255, 255, 255, 0.06) 6px,
+        rgba(74, 90, 63, 0.14) 11px,
+        rgba(74, 90, 63, 0.03) 16px
+      );
+    }
+
+    /* Efeito LED neon branco-quente/dourado para o número 3 */
+    @keyframes neonSuave {
+      0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255, 250, 228, 0.95))
+                drop-shadow(0 0 14px rgba(255, 218, 135, 0.85))
+                drop-shadow(0 0 24px rgba(217, 155, 82, 0.58));
+      }
+      50% {
+        filter: drop-shadow(0 0 8px rgba(255, 253, 240, 1))
+                drop-shadow(0 0 18px rgba(255, 226, 148, 0.95))
+                drop-shadow(0 0 30px rgba(217, 155, 82, 0.76));
+      }
+    }
+
+    .neon-led-3 {
+      animation: neonSuave 3.2s ease-in-out infinite;
+    }
+
+    /* Balanço sutil das folhagens */
+    @keyframes folhaBalanco {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(2.5deg); }
+    }
+
+    .animate-folha-esq {
+      transform-origin: bottom left;
+      animation: folhaBalanco 5.5s ease-in-out infinite;
+    }
+
+    .animate-folha-dir {
+      transform-origin: bottom right;
+      animation: folhaBalanco 6.2s ease-in-out infinite reverse;
+    }
+
+    /* Transição suave de entrada */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-entry {
+      animation: fadeSlideUp 0.35s ease-out forwards;
+    }
+
+    /* Confetes sutis da tela de confirmação */
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-16px) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(155px) rotate(320deg);
+        opacity: 0;
+      }
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: 0;
+      border-radius: 3px;
+      pointer-events: none;
+      animation: confettiFall 2.6s ease-out forwards;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-4 px-3 sm:py-8 sm:px-5 flex flex-col items-center justify-start selection:bg-salvia-claro selection:text-madeira-escura">
+
+  <!-- Input oculto para selecionar/trocar a foto do Apolo -->
+  <input type="file" id="input-foto-apolo" accept="image/*" class="hidden" />
+
+  <!-- ===================================================================== -->
+  <!-- VIEW PRINCIPAL: CONVITE INTERATIVO DO APOLO                           -->
+  <!-- ===================================================================== -->
+  <main id="view-convite" class="w-full max-w-md mx-auto">
+    <article class="relative bg-creme-card rounded-[2rem] shadow-cartao overflow-hidden border border-salvia-claro/45">
+
+      <!-- TOPO: ARCO ORGÂNICO DE BALÕES + FOLHAGENS NAS CORES DA FESTA -->
+      <header class="relative pt-2 pb-5 px-5 sm:px-6 text-center overflow-hidden bg-gradient-to-b from-pessego-claro/65 via-creme-card to-creme-card">
+
+        <!-- Arco Orgânico de Balões em SVG -->
+        <div class="relative -mx-5 sm:-mx-6 -mt-2 mb-1 pointer-events-none select-none" aria-hidden="true">
+          <svg viewBox="0 0 420 132" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="balOliva" cx="35%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#7B916A" />
+                <stop offset="100%" stop-color="#5F7152" />
+              </radialGradient>
+              <radialGradient id="balSalvia" cx="35%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#B5D0AE" />
+                <stop offset="100%" stop-color="#8FA88B" />
+              </radialGradient>
+              <radialGradient id="balMenta" cx="35%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#E4F0E0" />
+                <stop offset="100%" stop-color="#A7C4A0" />
+              </radialGradient>
+              <radialGradient id="balPessego" cx="35%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#F6E3CF" />
+                <stop offset="100%" stop-color="#E6C6A8" />
+              </radialGradient>
+              <radialGradient id="balTerracota" cx="35%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#DF8E73" />
+                <stop offset="100%" stop-color="#C86D51" />
+              </radialGradient>
+            </defs>
+
+            <!-- Folhagens tropicais sutis atrás dos balões -->
+            <g class="animate-folha-esq" opacity="0.72">
+              <path d="M18 96 C4 76 6 48 28 32 C34 52 34 74 18 96 Z" fill="#5F7152" />
+              <path d="M44 102 C28 84 32 58 56 44 C60 66 56 84 44 102 Z" fill="#8FA88B" />
+            </g>
+            <g class="animate-folha-dir" opacity="0.72">
+              <path d="M402 96 C416 76 414 48 392 32 C386 52 386 74 402 96 Z" fill="#5F7152" />
+              <path d="M376 102 C392 84 388 58 364 44 C360 66 364 84 376 102 Z" fill="#8FA88B" />
+            </g>
+
+            <!-- Camada traseira do arco de balões -->
+            <circle cx="24" cy="48" r="34" fill="url(#balOliva)" />
+            <circle cx="72" cy="24" r="32" fill="url(#balPessego)" />
+            <circle cx="128" cy="14" r="28" fill="url(#balSalvia)" />
+            <circle cx="184" cy="8" r="26" fill="url(#balTerracota)" />
+            <circle cx="238" cy="10" r="26" fill="url(#balMenta)" />
+            <circle cx="294" cy="16" r="29" fill="url(#balOliva)" />
+            <circle cx="350" cy="26" r="32" fill="url(#balPessego)" />
+            <circle cx="398" cy="52" r="34" fill="url(#balSalvia)" />
+
+            <!-- Camada intermediária -->
+            <circle cx="14" cy="88" r="24" fill="url(#balPessego)" />
+            <circle cx="54" cy="64" r="27" fill="url(#balMenta)" />
+            <circle cx="102" cy="40" r="24" fill="url(#balOliva)" />
+            <circle cx="154" cy="28" r="21" fill="url(#balPessego)" />
+            <circle cx="210" cy="22" r="22" fill="url(#balSalvia)" />
+            <circle cx="264" cy="28" r="22" fill="url(#balTerracota)" />
+            <circle cx="318" cy="42" r="25" fill="url(#balMenta)" />
+            <circle cx="366" cy="66" r="27" fill="url(#balOliva)" />
+            <circle cx="406" cy="90" r="23" fill="url(#balPessego)" />
+
+            <!-- Balões pequenos de acabamento orgânico -->
+            <circle cx="36" cy="96" r="13" fill="url(#balSalvia)" />
+            <circle cx="80" cy="56" r="12" fill="url(#balTerracota)" />
+            <circle cx="126" cy="44" r="11" fill="url(#balMenta)" />
+            <circle cx="176" cy="34" r="10" fill="url(#balOliva)" />
+            <circle cx="242" cy="34" r="10" fill="url(#balPessego)" />
+            <circle cx="292" cy="44" r="12" fill="url(#balSalvia)" />
+            <circle cx="342" cy="58" r="12" fill="url(#balPessego)" />
+            <circle cx="384" cy="96" r="13" fill="url(#balMenta)" />
+          </svg>
+        </div>
+
+        <!-- Selo Infantil: APOLO • 3 ANOS -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-oliva-suave border border-salvia-claro shadow-xs -mt-5 relative z-10">
+          <span class="w-2 h-2 rounded-full bg-dourado"></span>
+          <span class="font-titulo text-xs sm:text-sm font-bold tracking-wider uppercase text-oliva">
+            APOLO &bull; 3 ANOS
+          </span>
+          <span class="w-2 h-2 rounded-full bg-dourado"></span>
+        </div>
+
+        <!-- Moldura Arredondada Elegante para a Foto do Apolo -->
+        <div class="mt-4 relative mx-auto max-w-[330px]">
+          <div class="relative aspect-[4/3] w-full rounded-[1.75rem] overflow-hidden border-4 border-creme-card ring-2 ring-pessego shadow-placa bg-gradient-to-br from-oliva-suave via-creme-fundo to-pessego-claro">
+
+            <!-- Foto Real Carregada da Nuvem (aspect 4/3, object-cover object-top) -->
+            <img
+              id="foto-apolo-destaque"
+              alt="Foto do pequeno explorador Apolo"
+              class="hidden w-full h-full object-cover object-top"
+            />
+
+            <!-- Cartão Ilustrado exibido APENAS quando nenhuma foto estiver salva -->
+            <div id="foto-apolo-placeholder" class="w-full h-full flex flex-col items-center justify-center p-5 text-center">
+              <div class="w-16 h-16 rounded-2xl bg-creme-card/90 border border-salvia-claro shadow-xs flex items-center justify-center mb-3">
+                <svg class="w-10 h-10 text-oliva" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M22 46V52M34 46V52" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                  <path d="M16 42C12 42 9 39 8 36C12 36 15 35 18 32C20 26 23 18 31 15C38 12 48 14 51 20C53 24 51 29 45 30H39C38 35 40 40 40 44C40 46 38 47 35 47H21C18 47 16 45 16 42Z" fill="#A7C4A0" stroke="#5F7152" stroke-width="2.8" stroke-linejoin="round"/>
+                  <circle cx="42" cy="21" r="2.2" fill="#5B3E2C"/>
+                  <path d="M44 26C46 26 48 25.5 49.5 24.5" stroke="#5B3E2C" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M25 18L22 14M30 15L29 10M36 13L37 9" stroke="#D99B52" stroke-width="2.6" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="font-titulo text-base font-bold text-madeira-escura">
+                Pequeno Explorador Apolo
+              </p>
+              <p class="text-xs font-semibold text-madeira-suave mt-0.5 mb-3">
+                Adicione a foto especial do aniversariante
+              </p>
+              <button
+                type="button"
+                id="btn-inserir-foto-hero"
+                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-oliva hover:bg-oliva-escuro active:scale-[0.98] text-creme-card font-titulo text-xs sm:text-sm font-semibold shadow-suave transition cursor-pointer"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path d="M4 16l4.586-4.586a2 2 0 0 1 2.828 0L16 16m-2-2 1.586-1.586a2 2 0 0 1 2.828 0L20 14m-6-6h.01M6 20h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Inserir Foto do Apolo</span>
+              </button>
+            </div>
+
+            <!-- Overlay de carregamento ao comprimir/salvar foto -->
+            <div id="foto-apolo-salvando" class="hidden absolute inset-0 bg-creme-card/85 backdrop-blur-xs flex flex-col items-center justify-center gap-2">
+              <div class="w-7 h-7 rounded-full border-3 border-salvia-claro border-t-oliva animate-spin"></div>
+              <span class="font-titulo text-xs font-semibold text-oliva">Salvando foto na nuvem...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Título Principal + Chamada de Abertura Estilo Expedição Infantil -->
+        <div class="mt-5">
+          <h1 class="font-titulo text-3xl sm:text-4xl font-bold text-madeira-escura leading-tight">
+            <span id="cfg-nome-titulo">Apolo</span> faz <span id="cfg-idade-texto" class="text-oliva">3 Aninhos!</span>
+          </h1>
+          <p class="mt-2.5 text-sm sm:text-[15px] text-madeira-clara font-semibold leading-relaxed px-1">
+            Prepare-se para uma expedição inesquecível! Venha celebrar os 3 aninhos do nosso pequeno explorador Apolo em uma tarde cheia de diversão, descobertas e alegria!
+          </p>
+        </div>
+      </header>
+
+      <!-- CORPO DO CONVITE -->
+      <div class="px-5 sm:px-6 pb-7 space-y-5">
+
+        <!-- PAINEL DECORATIVO VERDE-SÁLVIA CANELADO + LED NEON "3" + PLAQUINHA -->
+        <section class="relative rounded-3xl bg-canelado-salvia p-4 sm:p-5 shadow-placa overflow-hidden border border-oliva/20">
+          <svg class="absolute -bottom-3 -right-2 w-20 h-20 opacity-20 pointer-events-none" viewBox="0 0 64 64" fill="#4A5A3F" aria-hidden="true">
+            <path d="M10 56 C12 26 30 12 58 8 C54 34 38 52 10 56 Z" />
+          </svg>
+
+          <div class="relative z-10 flex items-center justify-between gap-3">
+            <!-- Plaquinha arredondada "ÁREA DOS DINOSSAUROS" -->
+            <div class="flex-1 bg-dourado-claro border-2 border-dourado rounded-2xl px-3.5 py-3 shadow-placa -rotate-1">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-dourado text-creme-card">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2L14.8 8.2L21.5 9L16.5 13.6L17.9 20.3L12 16.9L6.1 20.3L7.5 13.6L2.5 9L9.2 8.2L12 2Z" />
+                  </svg>
+                </span>
+                <span class="font-titulo text-[11px] font-bold uppercase tracking-wider text-madeira-escura">
+                  Atenção Exploradores
+                </span>
+              </div>
+              <p class="font-titulo text-sm sm:text-base font-bold text-madeira-escura leading-snug">
+                ÁREA DOS DINOSSAUROS
+              </p>
+              <p class="text-[11px] font-bold text-madeira-clara mt-0.5">
+                Diversão garantida na selva!
+              </p>
+            </div>
+
+            <!-- Número "3" em Tubo LED Neon Branco-Quente/Dourado -->
+            <div class="shrink-0 w-24 sm:w-28 h-24 sm:h-28 flex items-center justify-center">
+              <svg viewBox="0 0 110 120" class="w-full h-full neon-led-3" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Número 3 iluminado em LED">
+                <path d="M30 28 C30 17 42 12 56 12 C73 12 84 21 84 34 C84 45 75 53 63 56 C78 59 87 69 87 82 C87 98 73 108 55 108 C39 108 28 100 26 90"
+                  stroke="#F7C96B" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" />
+                <path d="M30 28 C30 17 42 12 56 12 C73 12 84 21 84 34 C84 45 75 53 63 56 C78 59 87 69 87 82 C87 98 73 108 55 108 C39 108 28 100 26 90"
+                  stroke="#FFFDF2" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- CARTÃO DE INFORMAÇÕES DA FESTA (Data, Horário, Local e Google Maps) -->
+        <section class="rounded-3xl bg-creme-fundo border border-pessego/80 p-4 sm:p-5 space-y-3.5">
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Data -->
+            <div class="bg-creme-card rounded-2xl p-3.5 border border-salvia-claro/40 text-center">
+              <div class="w-9 h-9 mx-auto rounded-xl bg-oliva-suave text-oliva flex items-center justify-center mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="3" />
+                  <path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round" />
+                </svg>
+              </div>
+              <p class="text-[11px] font-extrabold uppercase tracking-wider text-madeira-suave">Data</p>
+              <p id="cfg-data" class="font-titulo text-base font-bold text-madeira-escura mt-0.5">21 de Dezembro</p>
+              <p id="cfg-data-sub" class="text-xs font-bold text-oliva">Segunda-feira</p>
+            </div>
+
+            <!-- Horário -->
+            <div class="bg-creme-card rounded-2xl p-3.5 border border-salvia-claro/40 text-center">
+              <div class="w-9 h-9 mx-auto rounded-xl bg-pessego-claro text-dourado-quente flex items-center justify-center mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <p class="text-[11px] font-extrabold uppercase tracking-wider text-madeira-suave">Horário</p>
+              <p id="cfg-horario" class="font-titulo text-base font-bold text-madeira-escura mt-0.5">16h00</p>
+              <p class="text-xs font-bold text-dourado-quente">Tarde de festa</p>
+            </div>
+          </div>
+
+          <!-- Local -->
+          <div class="bg-creme-card rounded-2xl p-3.5 border border-salvia-claro/40 flex items-center gap-3">
+            <div class="w-10 h-10 shrink-0 rounded-xl bg-oliva-suave text-oliva flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24">
+                <path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11Z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <p class="text-[11px] font-extrabold uppercase tracking-wider text-madeira-suave">Local</p>
+              <p id="cfg-local-texto" class="font-titulo text-sm sm:text-base font-bold text-madeira-escura leading-snug">
+                Casa de Brincar — Aracaju, SE
+              </p>
+            </div>
+          </div>
+
+          <!-- Botões de Ação Principais -->
+          <div class="grid grid-cols-1 gap-2.5 pt-1">
+            <a
+              id="btn-maps"
+              href="https://www.google.com/maps/search/?api=1&query=Casa+de+Brincar+Aracaju+SE"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full py-3.5 px-4 rounded-2xl bg-dourado hover:bg-dourado-quente active:scale-[0.99] text-creme-card font-titulo text-sm sm:text-base font-semibold shadow-placa flex items-center justify-center gap-2 transition"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11Z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg>
+              <span>Como Chegar (Google Maps)</span>
+            </a>
+
+            <button
+              type="button"
+              id="btn-ir-rsvp"
+              class="w-full py-3.5 px-4 rounded-2xl bg-oliva hover:bg-oliva-escuro active:scale-[0.99] text-creme-card font-titulo text-sm sm:text-base font-semibold shadow-suave flex items-center justify-center gap-2 transition cursor-pointer"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Confirmar Presença</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- SEÇÃO DE CONFIRMAÇÃO DE PRESENÇA (RSVP) -->
+        <section id="secao-rsvp" class="rounded-3xl bg-creme-card border-2 border-salvia-claro/55 p-4 sm:p-5 shadow-xs relative overflow-hidden">
+
+          <!-- FORMULÁRIO RSVP -->
+          <div id="rsvp-form-container">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div>
+                <h2 class="font-titulo text-xl font-bold text-madeira-escura">
+                  Confirme sua Presença
+                </h2>
+                <p class="text-xs font-semibold text-madeira-suave">
+                  Preencha os dados da sua família para a festa
+                </p>
+              </div>
+              <span id="contador-pessoas-form" class="shrink-0 px-3 py-1 rounded-full bg-oliva-suave border border-salvia-claro text-oliva font-titulo text-xs font-bold">
+                1 pessoa
+              </span>
+            </div>
+
+            <form id="rsvp-form" class="space-y-4" novalidate>
+              <!-- Convidado principal -->
+              <div>
+                <label for="input-convidado" class="block text-xs font-extrabold uppercase tracking-wider text-madeira-clara mb-1.5">
+                  Seu nome completo
+                </label>
+                <input
+                  type="text"
+                  id="input-convidado"
+                  autocomplete="name"
+                  placeholder="Ex.: Maria Clara Silva"
+                  class="w-full px-4 py-3 rounded-2xl bg-creme-fundo border-2 border-pessego/70 text-sm font-bold text-madeira-escura placeholder:text-madeira-suave/60 focus:outline-none focus:border-oliva focus:bg-creme-card transition"
+                />
+              </div>
+
+              <!-- Confirmação de presença + Quantidade de Adultos -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <span class="block text-xs font-extrabold uppercase tracking-wider text-madeira-clara mb-1.5">
+                    Você vai comparecer?
+                  </span>
+                  <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-creme-fundo border-2 border-pessego/70">
+                    <button
+                      type="button"
+                      id="btn-presenca-sim"
+                      class="py-2 px-2 rounded-xl bg-oliva text-creme-card font-titulo text-xs font-bold shadow-xs transition cursor-pointer"
+                    >
+                      Sim, eu vou!
+                    </button>
+                    <button
+                      type="button"
+                      id="btn-presenca-nao"
+                      class="py-2 px-2 rounded-xl text-madeira-suave hover:text-madeira-escura font-titulo text-xs font-bold transition cursor-pointer"
+                    >
+                      Não poderei
+                    </button>
+                  </div>
+                </div>
+
+                <div id="grupo-adultos">
+                  <label for="input-qtd-adultos" class="block text-xs font-extrabold uppercase tracking-wider text-madeira-clara mb-1.5">
+                    Total de adultos (incluindo você)
+                  </label>
+                  <div class="flex items-center gap-2 bg-creme-fundo border-2 border-pessego/70 rounded-2xl px-2 py-1.5">
+                    <button
+                      type="button"
+                      id="btn-menos-adulto"
+                      class="w-9 h-9 rounded-xl bg-creme-card hover:bg-pessego-claro text-madeira-escura font-titulo text-lg font-bold flex items-center justify-center transition cursor-pointer"
+                      aria-label="Diminuir adultos"
+                    >−</button>
+                    <input
+                      type="number"
+                      id="input-qtd-adultos"
+                      min="1"
+                      max="15"
+                      value="1"
+                      readonly
+                      class="w-full text-center bg-transparent font-titulo text-base font-bold text-madeira-escura focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      id="btn-mais-adulto"
+                      class="w-9 h-9 rounded-xl bg-creme-card hover:bg-pessego-claro text-madeira-escura font-titulo text-lg font-bold flex items-center justify-center transition cursor-pointer"
+                      aria-label="Aumentar adultos"
+                    >+</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Crianças / Acompanhantes -->
+              <div id="secao-criancas-form" class="space-y-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-madeira-clara">
+                    Crianças (nome e idade)
+                  </span>
+                  <button
+                    type="button"
+                    id="btn-add-crianca"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-oliva-suave hover:bg-salvia-menta text-oliva font-titulo text-xs font-bold border border-salvia-claro transition cursor-pointer"
+                  >
+                    <span>+ Adicionar Criança</span>
+                  </button>
+                </div>
+
+                <div id="lista-criancas" class="space-y-2"></div>
+              </div>
+
+              <!-- Recado opcional -->
+              <div>
+                <label for="input-mensagem" class="block text-xs font-extrabold uppercase tracking-wider text-madeira-clara mb-1.5">
+                  Deixe um recadinho para o Apolo (opcional)
+                </label>
+                <textarea
+                  id="input-mensagem"
+                  rows="2"
+                  maxlength="240"
+                  placeholder="Escreva uma mensagem carinhosa..."
+                  class="w-full px-4 py-2.5 rounded-2xl bg-creme-fundo border-2 border-pessego/70 text-sm font-semibold text-madeira-escura placeholder:text-madeira-suave/60 focus:outline-none focus:border-oliva focus:bg-creme-card transition resize-none"
+                ></textarea>
+              </div>
+
+              <!-- Caixa de erro do formulário -->
+              <div id="rsvp-error-box" class="hidden rounded-2xl bg-red-50 border border-red-200 px-3.5 py-2.5 text-xs font-bold text-red-700">
+                <span id="rsvp-error-text"></span>
+              </div>
+
+              <!-- Botão Enviar -->
+              <button
+                type="submit"
+                id="btn-enviar-rsvp"
+                class="w-full py-3.5 px-4 rounded-2xl bg-oliva hover:bg-oliva-escuro disabled:opacity-60 active:scale-[0.99] text-creme-card font-titulo text-base font-semibold shadow-suave flex items-center justify-center gap-2 transition cursor-pointer"
+              >
+                <span id="btn-enviar-texto">Confirmar Presença</span>
+                <span id="btn-enviar-spinner" class="hidden w-4 h-4 rounded-full border-2 border-creme-card/40 border-t-creme-card animate-spin"></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- CARTÃO COMEMORATIVO DE SUCESSO -->
+          <div id="rsvp-success-container" class="hidden relative text-center py-4 animate-entry">
+            <div id="confetti-layer" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-oliva-suave border-2 border-salvia-claro text-oliva flex items-center justify-center mb-3 shadow-xs">
+                <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+
+              <h3 id="sucesso-titulo" class="font-titulo text-2xl font-bold text-madeira-escura">
+                Presença Confirmada na Expedição!
+              </h3>
+              <p id="sucesso-subtitulo" class="text-sm font-semibold text-madeira-clara mt-1">
+                Oba! Estamos muito felizes em comemorar os 3 aninhos do Apolo com vocês.
+              </p>
+
+              <!-- Resumo da confirmação -->
+              <div class="mt-4 rounded-2xl bg-creme-fundo border border-pessego/80 p-4 text-left space-y-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <div>
+                    <p class="text-[11px] font-extrabold uppercase tracking-wider text-madeira-suave">Convidado Principal</p>
+                    <p id="sucesso-convidado" class="font-titulo text-base font-bold text-madeira-escura"></p>
+                  </div>
+                  <span id="sucesso-total-badge" class="px-3 py-1 rounded-full bg-oliva text-creme-card font-titulo text-xs font-semibold"></span>
+                </div>
+
+                <div id="sucesso-detalhes-wrapper" class="pt-2 border-t border-pessego/60 space-y-1.5">
+                  <p id="sucesso-adultos-texto" class="text-xs font-bold text-madeira-clara"></p>
+                  <div id="sucesso-criancas-lista" class="flex flex-wrap gap-1.5"></div>
+                  <p id="sucesso-mensagem-texto" class="hidden text-xs italic text-madeira-suave pt-1"></p>
+                </div>
+              </div>
+
+              <div class="mt-5 flex flex-col sm:flex-row gap-2.5 justify-center">
+                <button
+                  type="button"
+                  id="btn-nova-confirmacao"
+                  class="px-4 py-2.5 rounded-xl bg-oliva-suave hover:bg-salvia-menta text-oliva font-titulo text-sm font-bold border border-salvia-claro transition cursor-pointer"
+                >
+                  Fazer outra confirmação
+                </button>
+                <button
+                  type="button"
+                  id="btn-voltar-topo"
+                  class="px-4 py-2.5 rounded-xl bg-creme-suave hover:bg-pessego-claro text-madeira-escura font-titulo text-sm font-bold transition cursor-pointer"
+                >
+                  Voltar ao convite
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <!-- RODAPÉ DISCRETO COM ACESSO À ÁREA DOS PAIS -->
+    <footer class="mt-5 pb-6 text-center space-y-2">
+      <p class="text-xs font-semibold text-madeira-suave">
+        Com carinho, família do Apolo &bull; 3 Aninhos
+      </p>
+      <button
+        type="button"
+        id="btn-abrir-pais"
+        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-creme-card/80 hover:bg-creme-card border border-pessego/70 text-xs font-bold text-madeira-suave hover:text-oliva transition cursor-pointer"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <rect x="5" y="11" width="14" height="10" rx="2" />
+          <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke-linecap="round" />
+        </svg>
+        <span>Área dos Pais</span>
+      </button>
+    </footer>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW ÁREA DOS PAIS (PROTEGIDA PELO PIN 0510)                          -->
+  <!-- ===================================================================== -->
+  <section id="view-pais" class="hidden w-full max-w-2xl mx-auto pb-10 animate-entry">
+    <div class="bg-creme-card rounded-[2rem] shadow-cartao border border-salvia-claro/45 p-5 sm:p-7 space-y-6">
+
+      <!-- Cabeçalho do Painel -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-pessego/60">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-bold text-oliva mb-1">
+            <span id="status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span id="status-texto">Conectando à nuvem...</span>
+          </div>
+          <h2 class="font-titulo text-2xl font-bold text-madeira-escura">
+            Área dos Pais &bull; Apolo 3 Anos
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          id="btn-voltar-convite"
+          class="px-4 py-2.5 rounded-xl bg-creme-suave hover:bg-pessego-claro text-madeira-escura font-titulo text-sm font-bold transition cursor-pointer"
+        >
+          &larr; Voltar ao Convite
+        </button>
+      </div>
+
+      <!-- Alerta de erro de permissão/rede no Firebase caso ocorra -->
+      <div id="alerta-firebase-erro" class="hidden rounded-2xl bg-terracota-suave border border-terracota/40 px-4 py-3 text-xs font-bold text-madeira-escura leading-relaxed">
+        <span id="alerta-firebase-erro-texto"></span>
+      </div>
+
+      <!-- Gestão da Foto do Apolo -->
+      <div class="rounded-2xl bg-creme-fundo border border-pessego/70 p-4 flex flex-col sm:flex-row items-center gap-4">
+        <div class="w-24 h-20 shrink-0 rounded-2xl overflow-hidden bg-oliva-suave border-2 border-creme-card ring-1 ring-salvia-claro flex items-center justify-center">
+          <img id="pais-foto-preview" alt="Prévia da foto do Apolo" class="hidden w-full h-full object-cover object-top" />
+          <svg id="pais-foto-vazia-icon" class="w-8 h-8 text-oliva/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 16l4.586-4.586a2 2 0 0 1 2.828 0L16 16m-2-2 1.586-1.586a2 2 0 0 1 2.828 0L20 14m-6-6h.01M6 20h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="flex-1 text-center sm:text-left">
+          <h3 class="font-titulo text-base font-bold text-madeira-escura">Foto do Convite</h3>
+          <p class="text-xs font-semibold text-madeira-suave mt-0.5">
+            A imagem é otimizada automaticamente e exibida no topo para todos os convidados.
+          </p>
+          <div class="mt-3 flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <button
+              type="button"
+              id="btn-trocar-foto-pais"
+              class="px-3.5 py-2 rounded-xl bg-oliva hover:bg-oliva-escuro text-creme-card font-titulo text-xs font-semibold transition cursor-pointer"
+            >
+              <span id="texto-btn-trocar-foto">Inserir Foto do Apolo</span>
+            </button>
+            <button
+              type="button"
+              id="btn-remover-foto-pais"
+              class="hidden px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-titulo text-xs font-semibold transition cursor-pointer"
+            >
+              Remover Foto
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards de Resumo em Tempo Real -->
+      <div class="grid grid-cols-3 gap-3">
+        <div class="rounded-2xl bg-oliva-suave border border-salvia-claro p-3.5 text-center">
+          <p class="text-[11px] font-extrabold uppercase tracking-wider text-oliva">Total Confirmados</p>
+          <p id="stat-total-pessoas" class="font-titulo text-2xl sm:text-3xl font-bold text-madeira-escura mt-1">0</p>
+        </div>
+        <div class="rounded-2xl bg-pessego-claro border border-pessego p-3.5 text-center">
+          <p class="text-[11px] font-extrabold uppercase tracking-wider text-madeira-clara">Adultos</p>
+          <p id="stat-total-adultos" class="font-titulo text-2xl sm:text-3xl font-bold text-madeira-escura mt-1">0</p>
+        </div>
+        <div class="rounded-2xl bg-dourado-claro border border-dourado/50 p-3.5 text-center">
+          <p class="text-[11px] font-extrabold uppercase tracking-wider text-dourado-quente">Crianças</p>
+          <p id="stat-total-criancas" class="font-titulo text-2xl sm:text-3xl font-bold text-madeira-escura mt-1">0</p>
+        </div>
+      </div>
+
+      <!-- Barra de Busca + Exportar CSV -->
+      <div class="flex flex-col sm:flex-row gap-2.5">
+        <div class="relative flex-1">
+          <svg class="w-4 h-4 text-madeira-suave absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+          </svg>
+          <input
+            type="search"
+            id="input-busca-lista"
+            placeholder="Buscar convidado ou criança..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-creme-fundo border border-pessego/80 text-sm font-bold text-madeira-escura placeholder:text-madeira-suave/60 focus:outline-none focus:border-oliva transition"
+          />
+        </div>
+
+        <button
+          type="button"
+          id="btn-exportar-csv"
+          class="px-4 py-2.5 rounded-xl bg-dourado hover:bg-dourado-quente text-creme-card font-titulo text-sm font-semibold shadow-xs flex items-center justify-center gap-2 transition cursor-pointer shrink-0"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Exportar Lista (CSV)</span>
+        </button>
+      </div>
+
+      <!-- Lista de Confirmados -->
+      <div>
+        <div id="painel-loading" class="hidden py-8 text-center text-sm font-bold text-madeira-suave">
+          Carregando lista de presença...
+        </div>
+
+        <div id="painel-vazio" class="py-10 px-4 rounded-2xl bg-creme-fundo border border-dashed border-pessego text-center">
+          <p class="font-titulo text-lg font-bold text-madeira-escura">Nenhuma confirmação ainda</p>
+          <p class="text-sm font-semibold text-madeira-suave mt-1">
+            Assim que os convidados responderem pelo convite, os nomes aparecerão aqui em tempo real.
+          </p>
+        </div>
+
+        <div id="painel-lista" class="space-y-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL CUSTOMIZADO DE PIN PARA ÁREA DOS PAIS (SENHA: 0510)             -->
+  <!-- ===================================================================== -->
+  <div id="modal-pin-pais" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-madeira-escura/45 backdrop-blur-xs">
+    <div class="w-full max-w-xs bg-creme-card rounded-3xl p-6 shadow-2xl border border-salvia-claro animate-entry" role="dialog" aria-modal="true" aria-labelledby="modal-pin-titulo">
+      <div class="w-12 h-12 rounded-2xl bg-oliva-suave border border-salvia-claro text-oliva flex items-center justify-center mb-4">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <rect x="5" y="11" width="14" height="10" rx="2" />
+          <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke-linecap="round" />
+        </svg>
+      </div>
+      <h3 id="modal-pin-titulo" class="font-titulo text-xl font-bold text-madeira-escura">
+        Área dos Pais
+      </h3>
+      <p class="text-xs sm:text-sm text-madeira-suave font-semibold mt-1 leading-relaxed">
+        Digite a senha numérica para acessar a lista de presença e gerenciar a foto.
+      </p>
+
+      <form id="form-pin-pais" class="mt-4 space-y-3" novalidate>
+        <div>
+          <input
+            type="password"
+            id="input-pin-pais"
+            inputmode="numeric"
+            maxlength="8"
+            autocomplete="off"
+            placeholder="Digite a senha"
+            class="w-full px-4 py-3 rounded-2xl bg-creme-fundo border-2 border-pessego/70 text-center tracking-[0.35em] font-titulo text-lg font-bold text-madeira-escura placeholder:tracking-normal placeholder:font-corpo placeholder:text-sm placeholder:font-semibold placeholder:text-madeira-suave/60 focus:outline-none focus:border-oliva focus:bg-creme-card transition"
+          />
+          <p id="erro-pin-pais" class="hidden text-xs font-bold text-red-600 mt-1.5 text-center">
+            Senha incorreta. Tente novamente.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-1">
+          <button
+            type="button"
+            id="btn-cancelar-pin"
+            class="px-4 py-2.5 rounded-xl bg-creme-suave hover:bg-pessego-claro text-madeira-escura font-bold text-sm transition cursor-pointer"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-5 py-2.5 rounded-xl bg-oliva hover:bg-oliva-escuro text-creme-card font-bold text-sm transition cursor-pointer"
+          >
+            Entrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL CUSTOMIZADO DE EXCLUSÃO                                         -->
+  <!-- ===================================================================== -->
+  <div id="modal-excluir" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-madeira-escura/45 backdrop-blur-xs">
+    <div class="w-full max-w-sm bg-creme-card rounded-3xl p-6 shadow-2xl border border-pessego animate-entry" role="dialog" aria-modal="true" aria-labelledby="modal-excluir-titulo">
+      <div class="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 text-red-500 flex items-center justify-center mb-4">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6h12Z" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h3 id="modal-excluir-titulo" class="font-titulo text-xl font-bold text-madeira-escura">
+        Remover confirmação?
+      </h3>
+      <p id="modal-excluir-desc" class="text-sm text-madeira-suave font-semibold mt-1.5 leading-relaxed">
+        Esta ação removerá permanentemente este registro da lista de presença.
+      </p>
+      <div class="mt-6 flex items-center justify-end gap-2.5">
+        <button
+          type="button"
+          id="btn-cancelar-exclusao"
+          class="px-4 py-2.5 rounded-xl bg-creme-suave hover:bg-pessego-claro text-madeira-escura font-bold text-sm transition cursor-pointer"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          id="btn-confirmar-exclusao"
+          class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm transition cursor-pointer"
+        >
+          Sim, excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast discreto de feedback -->
+  <div id="toast-aviso" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-madeira-escura text-creme-card text-xs sm:text-sm font-bold shadow-xl animate-entry text-center max-w-[90vw]">
+    <span id="toast-texto"></span>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SCRIPT PRINCIPAL (VANILLA JS + FIREBASE CLOUD SYNC)                   -->
+  <!-- ===================================================================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, setDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // =========================================================================
+    // CONFIGURAÇÃO DO CONVITE
+    // =========================================================================
+    const CONFIG = {
+      nomeAniversariante: "Apolo",
+      idade: 3,
+      dataTexto: "21 de Dezembro",
+      diaSemanaTexto: "Segunda-feira",
+      horarioTexto: "16h00",
+      localTexto: "Casa de Brincar — Aracaju, SE",
+      googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Casa+de+Brincar+Aracaju+SE",
+      pinPais: "0510",
+      colecaoRsvps: "convite_apolo_rsvps",
+      colecaoConfig: "convite_apolo_config",
+      docFotoId: "main_photo"
+    };
+
+    // =========================================================================
+    // CHAVES DO PROJETO FIREBASE (convite-apolo)
+    // =========================================================================
+    const FIREBASE_FALLBACK_CONFIG = {
+      apiKey: "AIzaSyA-h1z0H0CFYDvpRB9v4-2-7bEVn1H4OW8",
+      authDomain: "convite-apolo.firebaseapp.com",
+      projectId: "convite-apolo",
+      storageBucket: "convite-apolo.firebasestorage.app",
+      messagingSenderId: "497201201208",
+      appId: "1:497201201208:web:603019c742e91824aea6cd"
+    };
+
+    // =========================================================================
+    // APLICAÇÃO DOS TEXTOS CONFIGURÁVEIS
+    // =========================================================================
+    const setTexto = (id, valor) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = valor;
+    };
+
+    setTexto("cfg-nome-titulo", CONFIG.nomeAniversariante);
+    setTexto("cfg-idade-texto", `${CONFIG.idade} Aninhos!`);
+    setTexto("cfg-data", CONFIG.dataTexto);
+    setTexto("cfg-data-sub", CONFIG.diaSemanaTexto);
+    setTexto("cfg-horario", CONFIG.horarioTexto);
+    setTexto("cfg-local-texto", CONFIG.localTexto);
+    const btnMapsEl = document.getElementById("btn-maps");
+    if (btnMapsEl) btnMapsEl.href = CONFIG.googleMapsUrl;
+
+    // =========================================================================
+    // ESTADO E REFERÊNCIAS DE DOM
+    // =========================================================================
+    const appId = typeof __app_id !== "undefined" ? __app_id : "convite-apolo";
+
+    let db = null;
+    let auth = null;
+    let currentUser = null;
+    let unsubscribeRsvp = null;
+    let unsubscribeConfig = null;
+
+    let registrosRsvp = [];
+    let registroParaExcluir = null;
+    let vaiComparecer = true;
+
+    const viewConvite = document.getElementById("view-convite");
+    const viewPais = document.getElementById("view-pais");
+    const formRsvp = document.getElementById("rsvp-form");
+    const inputConvidado = document.getElementById("input-convidado");
+    const btnPresencaSim = document.getElementById("btn-presenca-sim");
+    const btnPresencaNao = document.getElementById("btn-presenca-nao");
+    const grupoAdultos = document.getElementById("grupo-adultos");
+    const inputQtdAdultos = document.getElementById("input-qtd-adultos");
+    const btnMenosAdulto = document.getElementById("btn-menos-adulto");
+    const btnMaisAdulto = document.getElementById("btn-mais-adulto");
+    const secaoCriancasForm = document.getElementById("secao-criancas-form");
+    const listaCriancasEl = document.getElementById("lista-criancas");
+    const inputMensagem = document.getElementById("input-mensagem");
+    const contadorPessoasFormEl = document.getElementById("contador-pessoas-form");
+    const errorBox = document.getElementById("rsvp-error-box");
+    const errorText = document.getElementById("rsvp-error-text");
+    const btnEnviar = document.getElementById("btn-enviar-rsvp");
+    const btnEnviarTexto = document.getElementById("btn-enviar-texto");
+    const btnEnviarSpinner = document.getElementById("btn-enviar-spinner");
+    const formContainer = document.getElementById("rsvp-form-container");
+    const successContainer = document.getElementById("rsvp-success-container");
+    const confettiLayer = document.getElementById("confetti-layer");
+
+    const statTotalPessoas = document.getElementById("stat-total-pessoas");
+    const statTotalAdultos = document.getElementById("stat-total-adultos");
+    const statTotalCriancas = document.getElementById("stat-total-criancas");
+    const painelLoading = document.getElementById("painel-loading");
+    const painelVazio = document.getElementById("painel-vazio");
+    const painelLista = document.getElementById("painel-lista");
+    const inputBuscaLista = document.getElementById("input-busca-lista");
+    const alertaFirebaseErro = document.getElementById("alerta-firebase-erro");
+    const alertaFirebaseErroTexto = document.getElementById("alerta-firebase-erro-texto");
+
+    const modalExcluir = document.getElementById("modal-excluir");
+    const modalExcluirDesc = document.getElementById("modal-excluir-desc");
+    const modalPinPais = document.getElementById("modal-pin-pais");
+    const formPinPais = document.getElementById("form-pin-pais");
+    const inputPinPais = document.getElementById("input-pin-pais");
+    const erroPinPais = document.getElementById("erro-pin-pais");
+    const toastAviso = document.getElementById("toast-aviso");
+    const toastTexto = document.getElementById("toast-texto");
+
+    const inputFotoApolo = document.getElementById("input-foto-apolo");
+    const fotoApoloDestaque = document.getElementById("foto-apolo-destaque");
+    const fotoApoloPlaceholder = document.getElementById("foto-apolo-placeholder");
+    const fotoApoloSalvando = document.getElementById("foto-apolo-salvando");
+    const btnInserirFotoHero = document.getElementById("btn-inserir-foto-hero");
+
+    const paisFotoPreview = document.getElementById("pais-foto-preview");
+    const paisFotoVaziaIcon = document.getElementById("pais-foto-vazia-icon");
+    const btnTrocarFotoPais = document.getElementById("btn-trocar-foto-pais");
+    const textoBtnTrocarFoto = document.getElementById("texto-btn-trocar-foto");
+    const btnRemoverFotoPais = document.getElementById("btn-remover-foto-pais");
+
+    // =========================================================================
+    // UTILITÁRIOS (TOAST, STATUS NUVEM, CONFETES)
+    // =========================================================================
+
+    function mostrarToast(mensagem) {
+      toastTexto.textContent = mensagem;
+      toastAviso.classList.remove("hidden");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toastAviso.classList.add("hidden");
+      }, 3400);
+    }
+
+    function atualizarStatusNuvem(conectado, mensagem) {
+      const statusTexto = document.getElementById("status-texto");
+      const statusDot = document.getElementById("status-dot");
+      if (statusTexto) statusTexto.textContent = mensagem;
+      if (statusDot) {
+        statusDot.classList.remove("bg-emerald-500", "bg-amber-500", "bg-red-500");
+        statusDot.classList.add(conectado ? "bg-emerald-500" : "bg-red-500");
+      }
+    }
+
+    function mostrarErroFirebase(msg) {
+      alertaFirebaseErroTexto.textContent = msg;
+      alertaFirebaseErro.classList.remove("hidden");
+    }
+
+    function limparErroFirebase() {
+      alertaFirebaseErro.classList.add("hidden");
+    }
+
+    function dispararConfetes() {
+      confettiLayer.innerHTML = "";
+      const cores = ["#8FA88B", "#D99B52", "#C86D51", "#5F7152", "#A7C4A0"];
+      for (let i = 0; i < 24; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 96}%`;
+        piece.style.width = `${6 + Math.random() * 5}px`;
+        piece.style.height = `${8 + Math.random() * 6}px`;
+        piece.style.backgroundColor = cores[i % cores.length];
+        piece.style.animationDelay = `${Math.random() * 0.65}s`;
+        piece.style.animationDuration = `${2 + Math.random() * 1.1}s`;
+        confettiLayer.appendChild(piece);
+      }
+    }
+
+    // =========================================================================
+    // REFERÊNCIAS FIRESTORE (CAMINHO ESTRITO /artifacts/{appId}/public/data/...)
+    // =========================================================================
+
+    function getFotoDocRef() {
+      return doc(db, "artifacts", appId, "public", "data", CONFIG.colecaoConfig, CONFIG.docFotoId);
+    }
+
+    function getRsvpCollectionRef() {
+      return collection(db, "artifacts", appId, "public", "data", CONFIG.colecaoRsvps);
+    }
+
+    // =========================================================================
+    // GESTÃO DA FOTO DO APOLO (COMPRESSÃO CANVAS + FIRESTORE REALTIME)
+    // =========================================================================
+
+    function aplicarFotoNaInterface(url) {
+      if (url && typeof url === "string" && url.length > 30) {
+        fotoApoloDestaque.src = url;
+        fotoApoloDestaque.classList.remove("hidden");
+        fotoApoloPlaceholder.classList.add("hidden");
+
+        paisFotoPreview.src = url;
+        paisFotoPreview.classList.remove("hidden");
+        paisFotoVaziaIcon.classList.add("hidden");
+        textoBtnTrocarFoto.textContent = "Trocar Foto do Apolo";
+        btnRemoverFotoPais.classList.remove("hidden");
+      } else {
+        fotoApoloDestaque.removeAttribute("src");
+        fotoApoloDestaque.classList.add("hidden");
+        fotoApoloPlaceholder.classList.remove("hidden");
+
+        paisFotoPreview.removeAttribute("src");
+        paisFotoPreview.classList.add("hidden");
+        paisFotoVaziaIcon.classList.remove("hidden");
+        textoBtnTrocarFoto.textContent = "Inserir Foto do Apolo";
+        btnRemoverFotoPais.classList.add("hidden");
+      }
+    }
+
+    function comprimirImagemParaJpeg(arquivo, maxWidth = 900, qualidade = 0.82) {
+      return new Promise((resolve, reject) => {
+        const leitor = new FileReader();
+        leitor.onerror = () => reject(new Error("Não foi possível ler o arquivo selecionado."));
+        leitor.onload = (ev) => {
+          const img = new Image();
+          img.onerror = () => reject(new Error("O arquivo selecionado não é uma imagem válida."));
+          img.onload = () => {
+            let largura = img.naturalWidth || img.width;
+            let altura = img.naturalHeight || img.height;
+
+            if (largura > maxWidth) {
+              altura = Math.round((altura * maxWidth) / largura);
+              largura = maxWidth;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = largura;
+            canvas.height = altura;
+
+            const ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#F8F4EC";
+            ctx.fillRect(0, 0, largura, altura);
+            ctx.drawImage(img, 0, 0, largura, altura);
+
+            let dataUrl = canvas.toDataURL("image/jpeg", qualidade);
+            // Garante folga dentro do limite de 1 MB por documento do Firestore
+            if (dataUrl.length > 880000) {
+              dataUrl = canvas.toDataURL("image/jpeg", 0.72);
+            }
+            resolve(dataUrl);
+          };
+          img.src = ev.target.result;
+        };
+        leitor.readAsDataURL(arquivo);
+      });
+    }
+
+    async function processarNovaFotoSelecionada(arquivo) {
+      if (!arquivo) return;
+      if (!db || !currentUser) {
+        mostrarToast("Aguarde a conexão com a nuvem e tente novamente.");
+        return;
+      }
+
+      fotoApoloSalvando.classList.remove("hidden");
+
+      try {
+        const fotoComprimida = await comprimirImagemParaJpeg(arquivo, 900, 0.82);
+        aplicarFotoNaInterface(fotoComprimida);
+
+        await setDoc(getFotoDocRef(), {
+          fotoDataUrl: fotoComprimida,
+          atualizadoEm: Date.now()
+        }, { merge: true });
+
+        limparErroFirebase();
+        mostrarToast("Foto do Apolo salva na nuvem para todos!");
+      } catch (erro) {
+        console.error("Erro ao salvar foto no Firestore:", erro);
+        mostrarToast("Erro ao salvar foto na nuvem. Verifique as regras do Firestore.");
+      } finally {
+        fotoApoloSalvando.classList.add("hidden");
+      }
+    }
+
+    async function removerFotoDoConvite() {
+      if (!db || !currentUser) {
+        mostrarToast("Aguarde a conexão com a nuvem.");
+        return;
+      }
+
+      try {
+        aplicarFotoNaInterface(null);
+        await setDoc(getFotoDocRef(), {
+          fotoDataUrl: "",
+          atualizadoEm: Date.now()
+        }, { merge: true });
+        mostrarToast("Foto removida do convite.");
+      } catch (erro) {
+        console.error("Erro ao remover foto:", erro);
+        mostrarToast("Não foi possível remover a foto agora.");
+      }
+    }
+
+    // =========================================================================
+    // INICIALIZAÇÃO FIREBASE + LISTENERS EM TEMPO REAL
+    // =========================================================================
+
+    function iniciarEscutaFotoConfig() {
+      if (!db || !currentUser) return;
+      if (unsubscribeConfig) unsubscribeConfig();
+
+      unsubscribeConfig = onSnapshot(
+        getFotoDocRef(),
+        (docSnap) => {
+          limparErroFirebase();
+          if (docSnap.exists()) {
+            const dados = docSnap.data();
+            aplicarFotoNaInterface(dados?.fotoDataUrl || null);
+          } else {
+            aplicarFotoNaInterface(null);
+          }
+        },
+        (error) => {
+          console.error("Erro onSnapshot foto:", error);
+          mostrarErroFirebase("Não foi possível sincronizar a foto. Verifique se o Firestore e o Login Anônimo estão ativos.");
+        }
+      );
+    }
+
+    function iniciarEscutaRsvps() {
+      if (!db || !currentUser) return;
+      if (unsubscribeRsvp) unsubscribeRsvp();
+
+      painelLoading.classList.remove("hidden");
+
+      unsubscribeRsvp = onSnapshot(
+        getRsvpCollectionRef(),
+        (snapshot) => {
+          limparErroFirebase();
+          atualizarStatusNuvem(true, "Sincronizado em tempo real na nuvem");
+
+          const itens = [];
+          snapshot.forEach((docSnap) => {
+            itens.push({ id: docSnap.id, ...docSnap.data() });
+          });
+
+          // Ordenação em memória pelo campo criadoEm
+          itens.sort((a, b) => (b.criadoEm || 0) - (a.criadoEm || 0));
+          registrosRsvp = itens;
+
+          painelLoading.classList.add("hidden");
+          renderizarPainelPais();
+        },
+        (error) => {
+          console.error("Erro onSnapshot RSVPs:", error);
+          painelLoading.classList.add("hidden");
+          atualizarStatusNuvem(false, "Erro de permissão no Firestore");
+          mostrarErroFirebase("Erro ao ler a lista na nuvem. Confira no Firebase se o Firestore está em Modo de Teste e o Login Anônimo está ativado.");
+        }
+      );
+    }
+
+    async function inicializarFirebase() {
+      try {
+        let firebaseConfig = null;
+
+        if (typeof __firebase_config !== "undefined" && __firebase_config) {
+          firebaseConfig = typeof __firebase_config === "string"
+            ? JSON.parse(__firebase_config)
+            : __firebase_config;
+        } else if (typeof window.__firebase_config !== "undefined" && window.__firebase_config) {
+          firebaseConfig = typeof window.__firebase_config === "string"
+            ? JSON.parse(window.__firebase_config)
+            : window.__firebase_config;
+        } else {
+          firebaseConfig = FIREBASE_FALLBACK_CONFIG;
+        }
+
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+
+        // Regra 3: Autenticar ANTES de qualquer consulta no Firestore
+        if (typeof __initial_auth_token !== "undefined" && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+          currentUser = user;
+          if (user) {
+            atualizarStatusNuvem(true, "Sincronizado em tempo real na nuvem");
+            iniciarEscutaFotoConfig();
+            iniciarEscutaRsvps();
+          }
+        });
+      } catch (erro) {
+        console.error("Erro ao inicializar Firebase:", erro);
+        atualizarStatusNuvem(false, "Falha na conexão com Firebase");
+        mostrarErroFirebase("Falha ao conectar ao Firebase. Verifique se o provedor Anônimo está ativado em Authentication.");
+      }
+    }
+
+    // =========================================================================
+    // FORMULÁRIO DE CONFIRMAÇÃO DE PRESENÇA (RSVP)
+    // =========================================================================
+
+    function atualizarContadorFormulario() {
+      if (!vaiComparecer) {
+        contadorPessoasFormEl.textContent = "Ausência informada";
+        return;
+      }
+      const qtdAdultos = Math.max(1, Number(inputQtdAdultos.value) || 1);
+      const qtdCriancas = listaCriancasEl.children.length;
+      const total = qtdAdultos + qtdCriancas;
+      contadorPessoasFormEl.textContent = total === 1 ? "1 pessoa" : `${total} pessoas`;
+    }
+
+    function definirPresenca(confirmado) {
+      vaiComparecer = confirmado;
+      esconderErroFormulario();
+
+      if (confirmado) {
+        btnPresencaSim.className = "py-2 px-2 rounded-xl bg-oliva text-creme-card font-titulo text-xs font-bold shadow-xs transition cursor-pointer";
+        btnPresencaNao.className = "py-2 px-2 rounded-xl text-madeira-suave hover:text-madeira-escura font-titulo text-xs font-bold transition cursor-pointer";
+        grupoAdultos.classList.remove("hidden");
+        secaoCriancasForm.classList.remove("hidden");
+        btnEnviarTexto.textContent = "Confirmar Presença";
+      } else {
+        btnPresencaNao.className = "py-2 px-2 rounded-xl bg-terracota text-creme-card font-titulo text-xs font-bold shadow-xs transition cursor-pointer";
+        btnPresencaSim.className = "py-2 px-2 rounded-xl text-madeira-suave hover:text-madeira-escura font-titulo text-xs font-bold transition cursor-pointer";
+        grupoAdultos.classList.add("hidden");
+        secaoCriancasForm.classList.add("hidden");
+        btnEnviarTexto.textContent = "Enviar Resposta";
+      }
+      atualizarContadorFormulario();
+    }
+
+    function adicionarLinhaCrianca() {
+      const linha = document.createElement("div");
+      linha.className = "crianca-row flex items-center gap-2 p-2.5 rounded-2xl bg-creme-fundo border border-pessego/70 animate-entry";
+
+      linha.innerHTML = `
+        <input
+          type="text"
+          class="input-crianca-nome flex-1 min-w-0 px-3 py-2.5 rounded-xl bg-creme-card border border-transparent focus:border-oliva text-sm font-bold text-madeira-escura placeholder:text-madeira-suave/60 focus:outline-none transition"
+          placeholder="Nome da criança"
+          aria-label="Nome da criança"
+        />
+        <div class="relative w-24 shrink-0">
+          <input
+            type="number"
+            min="0"
+            max="17"
+            inputmode="numeric"
+            class="input-crianca-idade w-full pl-3 pr-11 py-2.5 rounded-xl bg-creme-card border border-transparent focus:border-oliva text-sm font-bold text-madeira-escura placeholder:text-madeira-suave/60 focus:outline-none transition"
+            placeholder="Idade"
+            aria-label="Idade da criança"
+          />
+          <span class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-madeira-suave">anos</span>
+        </div>
+        <button
+          type="button"
+          class="btn-remover-crianca w-10 h-10 shrink-0 rounded-xl text-madeira-suave hover:text-red-500 hover:bg-red-50 flex items-center justify-center transition cursor-pointer"
+          title="Remover criança"
+          aria-label="Remover criança"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6h12Z" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      `;
+
+      linha.querySelector(".btn-remover-crianca").addEventListener("click", () => {
+        linha.remove();
+        atualizarContadorFormulario();
+        esconderErroFormulario();
+      });
+
+      listaCriancasEl.appendChild(linha);
+      atualizarContadorFormulario();
+      linha.querySelector(".input-crianca-nome").focus();
+    }
+
+    function mostrarErroFormulario(msg) {
+      errorText.textContent = msg;
+      errorBox.classList.remove("hidden");
+    }
+
+    function esconderErroFormulario() {
+      errorBox.classList.add("hidden");
+    }
+
+    function definirEstadoCarregando(carregando) {
+      btnEnviar.disabled = carregando;
+      btnEnviarTexto.textContent = carregando
+        ? "Enviando..."
+        : (vaiComparecer ? "Confirmar Presença" : "Enviar Resposta");
+      btnEnviarSpinner.classList.toggle("hidden", !carregando);
+    }
+
+    function exibirCartaoSucesso(dados) {
+      const tituloEl = document.getElementById("sucesso-titulo");
+      const subtituloEl = document.getElementById("sucesso-subtitulo");
+
+      if (dados.confirmado) {
+        tituloEl.textContent = "Presença Confirmada na Expedição!";
+        subtituloEl.textContent = "Oba! Estamos muito felizes em comemorar os 3 aninhos do Apolo com vocês.";
+      } else {
+        tituloEl.textContent = "Resposta Registrada com Carinho!";
+        subtituloEl.textContent = "Sentiremos sua falta na festa do Apolo, mas agradecemos muito por avisar.";
+      }
+
+      document.getElementById("sucesso-convidado").textContent = dados.convidado;
+      document.getElementById("sucesso-total-badge").textContent = dados.confirmado
+        ? (dados.totalPessoas === 1 ? "1 pessoa" : `${dados.totalPessoas} pessoas`)
+        : "Não comparecerá";
+
+      const adultosEl = document.getElementById("sucesso-adultos-texto");
+      const listaCriancasSucesso = document.getElementById("sucesso-criancas-lista");
+      const msgSucessoEl = document.getElementById("sucesso-mensagem-texto");
+
+      listaCriancasSucesso.innerHTML = "";
+
+      if (dados.confirmado) {
+        adultosEl.classList.remove("hidden");
+        adultosEl.textContent = `Adultos confirmados: ${dados.adultos}`;
+
+        dados.criancas.forEach((crianca) => {
+          const badge = document.createElement("span");
+          badge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-oliva-suave text-madeira-escura border border-salvia-claro text-xs font-bold";
+          badge.textContent = `${crianca.nome} (${crianca.idade} ${crianca.idade === 1 ? "ano" : "anos"})`;
+          listaCriancasSucesso.appendChild(badge);
+        });
+      } else {
+        adultosEl.classList.add("hidden");
+      }
+
+      if (dados.mensagem) {
+        msgSucessoEl.textContent = `"${dados.mensagem}"`;
+        msgSucessoEl.classList.remove("hidden");
+      } else {
+        msgSucessoEl.classList.add("hidden");
+      }
+
+      formContainer.classList.add("hidden");
+      successContainer.classList.remove("hidden");
+      if (dados.confirmado) dispararConfetes();
+      document.getElementById("secao-rsvp").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    formRsvp.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      esconderErroFormulario();
+
+      const convidado = inputConvidado.value.trim();
+      if (!convidado) {
+        mostrarErroFormulario("Por favor, informe seu nome completo.");
+        inputConvidado.focus();
+        return;
+      }
+
+      const adultos = vaiComparecer ? Math.max(1, Number(inputQtdAdultos.value) || 1) : 0;
+      const criancas = [];
+
+      if (vaiComparecer) {
+        const linhas = Array.from(listaCriancasEl.querySelectorAll(".crianca-row"));
+        for (let i = 0; i < linhas.length; i++) {
+          const nomeEl = linhas[i].querySelector(".input-crianca-nome");
+          const idadeEl = linhas[i].querySelector(".input-crianca-idade");
+          const nome = nomeEl.value.trim();
+          const idadeStr = idadeEl.value.trim();
+
+          if (!nome) {
+            mostrarErroFormulario(`Informe o nome da criança #${i + 1} ou remova a linha.`);
+            nomeEl.focus();
+            return;
+          }
+
+          if (idadeStr === "" || isNaN(Number(idadeStr)) || Number(idadeStr) < 0 || Number(idadeStr) > 17) {
+            mostrarErroFormulario(`Informe uma idade válida (0 a 17) para ${nome}.`);
+            idadeEl.focus();
+            return;
+          }
+
+          criancas.push({
+            nome,
+            idade: Math.floor(Number(idadeStr))
+          });
+        }
+      }
+
+      const mensagem = inputMensagem.value.trim();
+      const totalPessoas = vaiComparecer ? (adultos + criancas.length) : 0;
+
+      const payload = {
+        convidado,
+        confirmado: vaiComparecer,
+        adultos,
+        criancas,
+        totalPessoas,
+        mensagem,
+        criadoEm: Date.now()
+      };
+
+      if (!db || !currentUser) {
+        mostrarErroFormulario("Conectando ao servidor da festa... Aguarde 2 segundos e clique novamente.");
+        return;
+      }
+
+      definirEstadoCarregando(true);
+
+      try {
+        await addDoc(getRsvpCollectionRef(), payload);
+
+        formRsvp.reset();
+        inputQtdAdultos.value = "1";
+        listaCriancasEl.innerHTML = "";
+        definirPresenca(true);
+        exibirCartaoSucesso(payload);
+      } catch (erro) {
+        console.error("Erro ao salvar confirmação no Firestore:", erro);
+        mostrarErroFormulario("Não foi possível enviar sua confirmação. Verifique sua internet e tente novamente.");
+      } finally {
+        definirEstadoCarregando(false);
+      }
+    });
+
+    // =========================================================================
+    // PAINEL DOS PAIS: RESUMO, BUSCA, EXCLUSÃO E EXPORTAÇÃO CSV
+    // =========================================================================
+
+    function formatarDataHora(timestamp) {
+      if (!timestamp) return "—";
+      try {
+        return new Date(timestamp).toLocaleString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+      } catch {
+        return "—";
+      }
+    }
+
+    function escaparHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderizarPainelPais() {
+      let totalPessoas = 0;
+      let totalAdultos = 0;
+      let totalCriancas = 0;
+
+      registrosRsvp.forEach((item) => {
+        const isConfirmado = item.confirmado !== false;
+        if (!isConfirmado) return;
+
+        const criancasList = Array.isArray(item.criancas)
+          ? item.criancas
+          : (Array.isArray(item.acompanhantes) ? item.acompanhantes : []);
+
+        const qtdAdultos = typeof item.adultos === "number" ? item.adultos : 1;
+        const qtdCriancas = criancasList.length;
+
+        totalAdultos += qtdAdultos;
+        totalCriancas += qtdCriancas;
+        totalPessoas += (typeof item.totalPessoas === "number" ? item.totalPessoas : (qtdAdultos + qtdCriancas));
+      });
+
+      statTotalPessoas.textContent = totalPessoas;
+      statTotalAdultos.textContent = totalAdultos;
+      statTotalCriancas.textContent = totalCriancas;
+
+      const termo = inputBuscaLista.value.trim().toLowerCase();
+      const filtrados = registrosRsvp.filter((item) => {
+        if (!termo) return true;
+        const nomeMatch = (item.convidado || "").toLowerCase().includes(termo);
+        const criancasList = Array.isArray(item.criancas)
+          ? item.criancas
+          : (Array.isArray(item.acompanhantes) ? item.acompanhantes : []);
+        const criancaMatch = criancasList.some((c) => (c.nome || "").toLowerCase().includes(termo));
+        return nomeMatch || criancaMatch;
+      });
+
+      painelLista.innerHTML = "";
+
+      if (filtrados.length === 0) {
+        painelVazio.classList.remove("hidden");
+        const tituloVazio = painelVazio.querySelector("p.font-titulo");
+        const descVazio = painelVazio.querySelector("p.text-sm");
+        if (termo && registrosRsvp.length > 0) {
+          tituloVazio.textContent = "Nenhum resultado encontrado";
+          descVazio.textContent = `Não encontramos ninguém com "${inputBuscaLista.value.trim()}".`;
+        } else {
+          tituloVazio.textContent = "Nenhuma confirmação ainda";
+          descVazio.textContent = "Assim que os convidados responderem pelo convite, os nomes aparecerão aqui em tempo real.";
+        }
+        return;
+      }
+
+      painelVazio.classList.add("hidden");
+
+      filtrados.forEach((item) => {
+        const isConfirmado = item.confirmado !== false;
+        const criancasList = Array.isArray(item.criancas)
+          ? item.criancas
+          : (Array.isArray(item.acompanhantes) ? item.acompanhantes : []);
+        const qtdAdultos = typeof item.adultos === "number" ? item.adultos : 1;
+
+        const card = document.createElement("div");
+        card.className = "bg-creme-fundo rounded-2xl p-4 sm:p-5 border border-pessego/60 hover:border-salvia transition flex flex-col gap-3";
+
+        let badgesHtml = "";
+        if (!isConfirmado) {
+          badgesHtml = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-terracota-suave text-terracota border border-terracota/30">Não poderá comparecer</span>`;
+        } else {
+          const badgeAdultos = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-oliva-suave text-madeira-escura border border-salvia-claro">${qtdAdultos} ${qtdAdultos === 1 ? "adulto" : "adultos"}</span>`;
+          const badgesCriancas = criancasList.map((c) => {
+            const rotuloIdade = Number(c.idade) === 1 ? "1 ano" : `${c.idade} anos`;
+            return `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-dourado-claro text-madeira-escura border border-dourado/50">${escaparHtml(c.nome)} <span class="opacity-75">&bull; ${rotuloIdade}</span></span>`;
+          }).join("");
+          badgesHtml = badgeAdultos + badgesCriancas;
+        }
+
+        const totalTexto = !isConfirmado
+          ? "Ausente"
+          : (item.totalPessoas === 1 ? "1 pessoa" : `${item.totalPessoas} pessoas`);
+        const badgeStatusClasse = isConfirmado
+          ? "bg-oliva text-creme-card"
+          : "bg-terracota text-creme-card";
+
+        const mensagemHtml = item.mensagem
+          ? `<p class="text-xs italic text-madeira-clara bg-creme-card rounded-xl px-3 py-2 border border-pessego/50">"${escaparHtml(item.mensagem)}"</p>`
+          : "";
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
+                <h4 class="font-titulo text-lg font-bold text-madeira-escura truncate">${escaparHtml(item.convidado)}</h4>
+                <span class="px-2.5 py-0.5 rounded-full ${badgeStatusClasse} font-titulo text-xs font-semibold">${totalTexto}</span>
+              </div>
+              <p class="text-xs text-madeira-suave font-semibold mt-0.5">Registrado em ${formatarDataHora(item.criadoEm)}</p>
+            </div>
+
+            <button
+              type="button"
+              class="btn-excluir-registro p-2 rounded-xl text-madeira-suave hover:text-red-500 hover:bg-red-50 transition shrink-0 cursor-pointer"
+              title="Excluir registro"
+              aria-label="Excluir registro de ${escaparHtml(item.convidado)}"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6h12Z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-1.5 pt-2.5 border-t border-pessego/50">
+            ${badgesHtml}
+          </div>
+          ${mensagemHtml}
+        `;
+
+        card.querySelector(".btn-excluir-registro").addEventListener("click", () => {
+          abrirModalExclusao(item);
+        });
+
+        painelLista.appendChild(card);
+      });
+    }
+
+    function abrirModalExclusao(item) {
+      registroParaExcluir = item;
+      modalExcluirDesc.textContent = `Deseja remover o registro de "${item.convidado}" da lista de presença?`;
+      modalExcluir.classList.remove("hidden");
+    }
+
+    function fecharModalExclusao() {
+      registroParaExcluir = null;
+      modalExcluir.classList.add("hidden");
+    }
+
+    async function confirmarExclusaoRegistro() {
+      if (!registroParaExcluir || !db || !currentUser) return;
+      const item = registroParaExcluir;
+      fecharModalExclusao();
+
+      try {
+        const docRef = doc(db, "artifacts", appId, "public", "data", CONFIG.colecaoRsvps, item.id);
+        await deleteDoc(docRef);
+        mostrarToast("Registro removido da lista.");
+      } catch (erro) {
+        console.error("Erro ao excluir registro:", erro);
+        mostrarToast("Erro ao excluir registro. Tente novamente.");
+      }
+    }
+
+    function exportarListaCSV() {
+      if (registrosRsvp.length === 0) {
+        mostrarToast("A lista ainda está vazia para exportar.");
+        return;
+      }
+
+      const cabecalho = ["Convidado", "Status", "Adultos", "Crianças e Idades", "Total de Pessoas", "Recado", "Data do Registro"];
+      const escaparCsv = (valor) => `"${String(valor ?? "").replace(/"/g, '""')}"`;
+
+      const linhas = registrosRsvp.map((item) => {
+        const isConfirmado = item.confirmado !== false;
+        const criancasList = Array.isArray(item.criancas)
+          ? item.criancas
+          : (Array.isArray(item.acompanhantes) ? item.acompanhantes : []);
+        const criancasTexto = criancasList.length > 0
+          ? criancasList.map((c) => `${c.nome} (${c.idade} anos)`).join(" | ")
+          : "Nenhuma";
+
+        return [
+          escaparCsv(item.convidado),
+          escaparCsv(isConfirmado ? "Confirmado" : "Não comparecerá"),
+          escaparCsv(isConfirmado ? (item.adultos ?? 1) : 0),
+          escaparCsv(criancasTexto),
+          escaparCsv(isConfirmado ? (item.totalPessoas ?? 1) : 0),
+          escaparCsv(item.mensagem || ""),
+          escaparCsv(formatarDataHora(item.criadoEm))
+        ].join(";");
+      });
+
+      const conteudoCsv = "\uFEFF" + [cabecalho.map(escaparCsv).join(";"), ...linhas].join("\r\n");
+      const blob = new Blob([conteudoCsv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "lista-presenca-apolo-3-aninhos.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      mostrarToast("Lista exportada em CSV com sucesso!");
+    }
+
+    // =========================================================================
+    // EVENTOS DE INTERAÇÃO, FOTO E MODAIS
+    // =========================================================================
+
+    btnInserirFotoHero.addEventListener("click", () => inputFotoApolo.click());
+    btnTrocarFotoPais.addEventListener("click", () => inputFotoApolo.click());
+    btnRemoverFotoPais.addEventListener("click", removerFotoDoConvite);
+
+    inputFotoApolo.addEventListener("change", (e) => {
+      const arquivo = e.target.files && e.target.files[0];
+      if (arquivo) {
+        processarNovaFotoSelecionada(arquivo);
+      }
+      e.target.value = "";
+    });
+
+    btnPresencaSim.addEventListener("click", () => definirPresenca(true));
+    btnPresencaNao.addEventListener("click", () => definirPresenca(false));
+
+    btnMenosAdulto.addEventListener("click", () => {
+      const atual = Number(inputQtdAdultos.value) || 1;
+      if (atual > 1) {
+        inputQtdAdultos.value = String(atual - 1);
+        atualizarContadorFormulario();
+      }
+    });
+
+    btnMaisAdulto.addEventListener("click", () => {
+      const atual = Number(inputQtdAdultos.value) || 1;
+      if (atual < 15) {
+        inputQtdAdultos.value = String(atual + 1);
+        atualizarContadorFormulario();
+      }
+    });
+
+    document.getElementById("btn-ir-rsvp").addEventListener("click", () => {
+      document.getElementById("secao-rsvp").scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        if (!formContainer.classList.contains("hidden")) {
+          inputConvidado.focus();
+        }
+      }, 450);
+    });
+
+    document.getElementById("btn-add-crianca").addEventListener("click", adicionarLinhaCrianca);
+
+    document.getElementById("btn-nova-confirmacao").addEventListener("click", () => {
+      successContainer.classList.add("hidden");
+      formContainer.classList.remove("hidden");
+      inputConvidado.focus();
+    });
+
+    document.getElementById("btn-voltar-topo").addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("btn-abrir-pais").addEventListener("click", () => {
+      erroPinPais.classList.add("hidden");
+      inputPinPais.value = "";
+      modalPinPais.classList.remove("hidden");
+      setTimeout(() => inputPinPais.focus(), 80);
+    });
+
+    document.getElementById("btn-cancelar-pin").addEventListener("click", () => {
+      modalPinPais.classList.add("hidden");
+    });
+
+    modalPinPais.addEventListener("click", (e) => {
+      if (e.target === modalPinPais) {
+        modalPinPais.classList.add("hidden");
+      }
+    });
+
+    formPinPais.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (inputPinPais.value.trim() === CONFIG.pinPais) {
+        modalPinPais.classList.add("hidden");
+        viewConvite.classList.add("hidden");
+        viewPais.classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        erroPinPais.classList.remove("hidden");
+        inputPinPais.select();
+      }
+    });
+
+    document.getElementById("btn-voltar-convite").addEventListener("click", () => {
+      viewPais.classList.add("hidden");
+      viewConvite.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    inputBuscaLista.addEventListener("input", renderizarPainelPais);
+    document.getElementById("btn-exportar-csv").addEventListener("click", exportarListaCSV);
+
+    document.getElementById("btn-cancelar-exclusao").addEventListener("click", fecharModalExclusao);
+    document.getElementById("btn-confirmar-exclusao").addEventListener("click", confirmarExclusaoRegistro);
+    modalExcluir.addEventListener("click", (e) => {
+      if (e.target === modalExcluir) fecharModalExclusao();
+    });
+
+    // Inicia conexão em tempo real com Firebase
+    inicializarFirebase();
+  </script>
+</body>
+</html>
